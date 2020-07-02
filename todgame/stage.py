@@ -25,6 +25,10 @@ class Stage:
     def sprites(self) -> List[BasicSprite]:
         return self._sprites
 
+    @property
+    def coroutine_manager(self) -> CoroutineManager:
+        return self._coroutine_manager
+
     def draw_sprites(self) -> None:
         # TODO: zkey-aware drawing
         self.surface.fill(self.clear_color)

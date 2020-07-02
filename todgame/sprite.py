@@ -31,6 +31,20 @@ class Sprite(BasicSprite):
         self._drawable.draw(coords=self.coords, destination=destination)
 
 
+def _get_side_for_vector(vec: Vector2d) -> Side:
+    x, y = vec.coords()
+    if abs(x) < abs(y):
+        if y < 0:
+            return Side.BACK
+        else:
+            return Side.FRONT
+    else:
+        if x < 0:
+            return Side.LEFT
+        else:
+            return Side.RIGHT
+
+
 class WalkingSprite(BasicSprite):
     def __init__(
         self,
@@ -50,5 +64,21 @@ class WalkingSprite(BasicSprite):
     def turn(self, new_side: Side) -> None:
         self._side = new_side
 
-    async def walk(self, coords_delta: Vector2d) -> None:
-        pass
+    async def walk(self, coords_delta: Vector2d, speed: float) -> None:
+        if speed == 0.0:
+            raise ZeroDivisionError('WalkingSprite.walk: speed cannot be 0')
+
+        path_length = abs(coords_delta)
+        if path_length == 0.0:
+            # Nothing to do if no movement is necessary
+            return
+
+        self.turn(_get_side_for_vector(coords_delta))
+
+        destination_point = self.coords + coords_delta
+
+        self._momentum = coords_delta.normalized() * speed
+        walk_time = path_length / speed
+        await self.stage.coroutine_manager.sleep(walk_time)
+        self._momentum = Vector2d(0.0, 0.0)
+        self.coords = destination_point
