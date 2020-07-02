@@ -47,7 +47,7 @@ class AnimatedDrawable(Drawable):
     def get_static_frame_num(self) -> int:
         return 0
 
-    def get_fps(self):
+    def get_fps(self) -> int:
         return self._fps
 
     def static_frame(self) -> 'SimpleStaticDrawable':

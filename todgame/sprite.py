@@ -26,7 +26,7 @@ class BasicSprite:
 
 class Sprite(BasicSprite):
     def __init__(self, stage: Stage, coords: Vector2d, drawable: Drawable):
-        super.__init__(stage=stage, coords=coords)
+        super().__init__(stage=stage, coords=coords)
         self._drawable = drawable
 
 
@@ -42,21 +42,21 @@ class WalkingSprite(BasicSprite):
         four_drawable: FourSideDrawable,
         initial_side: Side = Side.FRONT
     ):
-        super.__init__(stage=stage, coords=coords)
+        super().__init__(stage=stage, coords=coords)
         self._four_drawable = four_drawable
         self._side = initial_side
         self._momentum = Vector2d(0, 0)
 
 
     def draw(self, destination: pg.Surface) -> None:
-        self._four_drawable.draw(coorde=self.coords, destination=destination, side=self._side)
+        self._four_drawable.draw(coords=self.coords, destination=destination, side=self._side)
 
 
     def turn(self, new_side: Side) -> None:
         self._side = new_side
 
 
-    async def walk(self, coords_delta: Vector2d) -> Coroutine[None, Any, None]:
+    async def walk(self, coords_delta: Vector2d) -> None:
         pass
 
 
