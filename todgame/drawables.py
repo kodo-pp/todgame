@@ -86,6 +86,14 @@ class FourSideDrawable:
 
         raise ValueError(f'Invalid side: {side}')
 
+    def map(self, func: Callable[[Drawable], Drawable]) -> 'FourSideDrawable':
+        return FourSideDrawable(
+            left = func(self.left),
+            right = func(self.right),
+            front = func(self.front),
+            back = func(self.back),
+        )
+
 
 class Texture(StaticDrawable):
     def __init__(self, image: pg.Surface):

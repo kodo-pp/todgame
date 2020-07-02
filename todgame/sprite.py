@@ -55,11 +55,16 @@ class WalkingSprite(BasicSprite):
     ):
         super().__init__(stage=stage, coords=coords)
         self._four_drawable = four_drawable
+        self._static_four_drawable = four_drawable.map(lambda x: x.static_frame())
         self._side = initial_side
         self._momentum = Vector2d(0, 0)
 
     def draw(self, destination: pg.Surface) -> None:
-        self._four_drawable.draw(coords=self.coords, destination=destination, side=self._side)
+        drawable = self._four_drawable if self.is_moving() else self._static_four_drawable
+        drawable.draw(coords=self.coords, destination=destination, side=self._side)
+
+    def is_moving(self) -> bool:
+        return abs(self._momentum) > 0
 
     def turn(self, new_side: Side) -> None:
         self._side = new_side
