@@ -92,7 +92,6 @@ class Texture(StaticDrawable):
         super().__init__()
         self._image = image
 
-
     def draw(self, coords: Point2d, destination: pg.Surface) -> None:
         target_rect = self._image.rect
         target_rect.center = coords.ints()
@@ -103,7 +102,6 @@ class FrameByFrameAnimatiedDrawable(AnimatedDrawable):
     def __init__(self, frames: List[StaticDrawable], fps: int):
         super().__init__(fps=fps)
         self._frames = frames
-
 
     def draw_frame(self, frame_num: int, coords: Point2d, destination: pg.Surface) -> None:
         frame_index = frame_num % len(self._frames)
