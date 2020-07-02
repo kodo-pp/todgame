@@ -4,12 +4,12 @@ from todgame.stage import Stage
 
 from abc import abstractmethod
 
-import pygame as pg
-from svec import Vector2d
+import pygame as pg  # type: ignore
+from svec import Point2d, Vector2d
 
 
 class BasicSprite:
-    def __init__(self, stage: Stage, coords: Vector2d):
+    def __init__(self, stage: Stage, coords: Point2d):
         self.stage = stage
         self.coords = coords
 
@@ -25,7 +25,7 @@ class BasicSprite:
 
 
 class Sprite(BasicSprite):
-    def __init__(self, stage: Stage, coords: Vector2d, drawable: Drawable):
+    def __init__(self, stage: Stage, coords: Point2d, drawable: Drawable):
         super().__init__(stage=stage, coords=coords)
         self._drawable = drawable
 
@@ -38,7 +38,7 @@ class WalkingSprite(BasicSprite):
     def __init__(
         self,
         stage: Stage,
-        coords: Vector2d,
+        coords: Point2d,
         four_drawable: FourSideDrawable,
         initial_side: Side = Side.FRONT
     ):

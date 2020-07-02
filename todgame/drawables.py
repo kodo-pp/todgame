@@ -5,7 +5,7 @@ from abc import abstractmethod
 from math import floor
 from typing import Callable, Generic, List
 
-import pygame as pg
+import pygame as pg  # type: ignore
 from svec import Point2d
 
 

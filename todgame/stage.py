@@ -3,8 +3,8 @@ from todgame.util import robust_list_iter
 
 from typing import List
 
-import pygame as pg
-from coman import CoroutineManager
+import pygame as pg  # type: ignore
+from coman.coroutine_manager import CoroutineManager
 
 
 class Stage:
