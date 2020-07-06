@@ -3,9 +3,13 @@ from todgame.side import Side
 from todgame.stage import Stage
 
 from abc import abstractmethod
+from typing import NewType, Tuple
 
 import pygame as pg  # type: ignore
 from svec import Point2d, Vector2d
+
+
+ZKey = NewType('ZKey', Tuple[int, float])
 
 
 class BasicSprite:
@@ -20,6 +24,15 @@ class BasicSprite:
     def update(self, time_delta: float) -> None:
         del self, time_delta
         pass
+
+    def zkey(self) -> ZKey:
+        return ZKey((self.z_layer(), self.z_coord()))
+
+    def z_layer(self) -> int:
+        return 0
+
+    def z_coord(self) -> float:
+        return self.coords.vec.y
 
 
 class Sprite(BasicSprite):

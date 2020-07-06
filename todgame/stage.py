@@ -32,7 +32,7 @@ class Stage:
     def draw_sprites(self) -> None:
         # TODO: zkey-aware drawing
         self.surface.fill(self.clear_color)
-        for sprite in self._sprites:
+        for sprite in sorted(self._sprites, key = lambda x: x.zkey()):
             sprite.draw(destination=self.surface)
 
     def update(self, time_delta: float) -> None:
